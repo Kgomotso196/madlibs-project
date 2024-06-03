@@ -32,7 +32,7 @@ body {
 #edit,
 #preview {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: rgb(250, 249, 244);
+  color: rgb(189, 159, 9);
   font-weight: bold;
   justify-content: center;
 }
@@ -41,7 +41,7 @@ body {
 .madLibsPreview {
   width: calc(50% - 20px);
   padding: 20px;
-  margin: 100px;
+  margin: 50px;
   border: 1px solid #ccc;
   border-radius: 8px;
 }
@@ -63,7 +63,7 @@ body {
 .container {
   display: flex;
   flex-direction: row;
-  gap: 50px;
+  gap: 2px;
   justify-content: center;
   width: 100%;
 }
@@ -86,6 +86,9 @@ body {
   margin-bottom: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: cursive;
+  font-size: xx-large;
+  color: rgb(121, 204, 240);
 }
 
 
@@ -132,7 +135,7 @@ previewInput[type="text"].empty {
 }
 
 #play-btn {
-  background-color: #6680b8;
+  background-color: rgb(69, 166, 69);
   border: solid rgb(121, 204, 240);
   border-radius: 5px;
   color: rgb(6, 57, 25);
@@ -147,7 +150,7 @@ previewInput[type="text"].empty {
 }
 
 #pause-btn {
-  background-color: #6680b8;
+  background-color: red;
   border: solid rgb(121, 204, 240);
   border-radius: 5px;
   color: rgb(6, 57, 25);
@@ -162,7 +165,7 @@ previewInput[type="text"].empty {
 }
 
 #reset-btn {
-  background-color: #6680b8;
+  background-color: yellow;
   border: solid rgb(121, 204, 240);
   border-radius: 5px;
   color: rgb(6, 57, 25);

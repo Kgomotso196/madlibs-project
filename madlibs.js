@@ -25,6 +25,11 @@ getRawStory()
         input.placeholder = wordObj.pos;
         input.maxLength = 20;
         input.style.width = '50px';
+        input.style.backgroundColor = 'rgb(189, 159, 9)';
+        input.style.border = '2px solid rgb(121, 204, 240)';
+        input.style.borderRadius = '5px';
+        input.style.fontSize = '16px';
+        input.style.fontStyle = 'italic';
         editCard.appendChild(input);
 
         const previewInput = document.createElement('input');
@@ -85,6 +90,11 @@ getRawStory()
   });
 
 function adjustInputWidth(input) {
-  input.style.width = 'auto';
+  input.style.width = '10px';
   input.style.width = input.scrollWidth + 'px';
+  input.style.color = 'white';
+  input.style.backgroundColor = 'rgb(189, 159, 9)';
+  input.style.border = '2px solid rgb(121, 204, 240)';
+  input.style.borderRadius = '5px';
+  input.style.fontSize = '16px';
 }
