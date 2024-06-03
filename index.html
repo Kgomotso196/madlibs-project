@@ -3,14 +3,45 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
+    <title>🏖️ShoreTrip</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class='madLibsEdit'>
+    <div class="page">
+      <div class="heading">
+        <h1 id="heading1">Tropical Tales</h1>
+        <h2 id="sub-heading">Create Your Beach Adventure! :)</h2>
+      </div>
+      <div class="container">
+        <div class="madLibsEdit">
+          <h3 id="edit">Edit here..</h3>
+        </div>
+        <div class="madLibsPreview">
+          <h3 id="preview">Preview here!</h3>
+        </div>
+      </div>
+      <tbody class=""></tbody>
+      <table class="table-list">
+        <tr>
+            <td class="play"><button id="play-btn">Play</button></td>
+            <td class="pause"><button id="pause-btn">Pause</button></td>
+            <td class="reset"><button id="reset-btn">Reset</button></td>
+            <td id="translation"></td>
+        </tr>
+      </table>
     </div>
-    <div class='madLibsPreview'>
-    </div>
+    <video id="bg-clip" autoplay loop muted poster="./assets/beach.mp4">
+      <source src="./assets/beach.mp4" type="video/mp4">
+    </video>
+    <audio id="audioo" src="./assets/beach.mp3" loop="loop"></audio>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          { pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.VERTICAL },
+          'translation'
+        );}
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="do-not-touch.js"></script>
     <script src="madlibs.js"></script>
   </body>

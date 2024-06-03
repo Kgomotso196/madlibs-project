@@ -1,49 +1,90 @@
-/**
- * Complete the implementation of parseStory.
- *
- * parseStory retrieves the story as a single string from story.txt
- * (I have written this part for you).
- *
- * In your code, you are required (please read this carefully):
- * - to return a list of objects
- * - each object should definitely have a field, `word`
- * - each object should maybe have a field, `pos` (part of speech)
- *
- * So for example, the return value of this for the example story.txt
- * will be an object that looks like so (note the comma! periods should
- * be handled in the same way).
- *
- * Input: "Louis[n] went[v] to the store[n], and it was fun[a]."
- * Output: [
- *  { word: "Louis", pos: "noun" },
- *  { word: "went", pos: "verb", },
- *  { word: "to", },
- *  { word: "the", },
- *  { word: "store", pos: "noun" }
- *  { word: "," }
- *  ....
- *
- * There are multiple ways to do this, but you may want to use regular expressions.
- * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
- */
 function parseStory(rawStory) {
-  // Your code here.
-  return {}; // This line is currently wrong :)
+  const parseWord = (word) => {
+    if (/\[v\]/.test(word)) return { words: word.slice(0, -3), pos: 'verb' };
+    if (/\[n\]/.test(word)) return { words: word.slice(0, -3), pos: 'noun' };
+    if (/\[a\]/.test(word)) return { words: word.slice(0, -3), pos: 'adjective' };
+    return { words: word };
+  };
+
+  return rawStory.split(' ').map(parseWord);
 }
 
-/**
- * All your other JavaScript code goes here, inside the function. Don't worry about
- * the `then` and `async` syntax for now.
- *
- * NOTE: You should not be writing any code in the global namespace EXCEPT
- * declaring functions. All code should either:
- * 1. Be in a function.
- * 2. Be in .then() below.
- *
- * You'll want to use the results of parseStory() to display the story on the page.
- */
 getRawStory()
   .then(parseStory)
   .then((processedStory) => {
     console.log(processedStory);
+
+    const editCard = document.querySelector('.madLibsEdit');
+    const previewCard = document.querySelector('.madLibsPreview');
+    const previewInputs = [];
+
+    processedStory.forEach((wordObj) => {
+      if (wordObj.pos) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = wordObj.pos;
+        input.maxLength = 20;
+        input.style.width = '50px';
+        editCard.appendChild(input);
+
+        const previewInput = document.createElement('input');
+        previewInput.type = 'text';
+        previewInput.placeholder = wordObj.pos;
+        previewInput.maxLength = 20;
+        previewInput.readOnly = true;
+        previewInput.style.width = '50px';
+        previewCard.appendChild(previewInput);
+
+        previewInputs.push(previewInput);
+
+        input.addEventListener('input', () => {
+          previewInput.value = input.value;
+          adjustInputWidth(previewInput);
+        });
+
+        adjustInputWidth(previewInput);
+      } else {
+        const editText = document.createElement('span');
+        editText.innerText = ` ${wordObj.words}`;
+        editCard.appendChild(editText);
+
+        const previewText = document.createElement('span');
+        previewText.innerText = ` ${wordObj.words}`;
+        previewCard.appendChild(previewText);
+      }
+    });
+
+    const blanks = document.querySelectorAll('.madLibsEdit input');
+    blanks.forEach((blank, i) => {
+      blank.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          if (i < blanks.length - 1) {
+            blanks[i + 1].focus();
+          }
+        }
+      });
+    });
+
+    const reset = document.querySelector('.reset');
+    const outputBlanks = document.querySelectorAll('.madLibsPreview input');
+
+    reset.addEventListener('click', () => {
+      blanks.forEach((blank, i) => {
+        blank.value = '';
+        outputBlanks[i].value = blank.placeholder;
+        adjustInputWidth(outputBlanks[i]);
+      });
+    });
+
+    const sound = document.querySelector('#audioo');
+    const startSound = document.querySelector('.play');
+    startSound.addEventListener('click', () => sound.play());
+
+    const stopSound = document.querySelector('.pause');
+    stopSound.addEventListener('click', () => sound.pause());
   });
+
+function adjustInputWidth(input) {
+  input.style.width = 'auto';
+  input.style.width = input.scrollWidth + 'px';
+}
