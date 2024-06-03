@@ -9,6 +9,40 @@ function parseStory(rawStory) {
   return rawStory.split(' ').map(parseWord);
 }
 
+function saveInputsToLocal() {
+  const inputs = document.querySelectorAll('.madLibsEdit input');
+  const savedInputs = {};
+  inputs.forEach((input, index) => {
+    savedInputs[`input_${index}`] = input.value;
+  });
+  localStorage.setItem('madLibsInputs', JSON.stringify(savedInputs));
+}
+
+function retrieveInputsFromLocal() {
+  const savedInputsJSON = localStorage.getItem('madLibsInputs');
+  if (savedInputsJSON) {
+    const savedInputs = JSON.parse(savedInputsJSON);
+    const inputs = document.querySelectorAll('.madLibsEdit input');
+    inputs.forEach((input, index) => {
+      const savedValue = savedInputs[`input_${index}`];
+      if (savedValue) {
+        input.value = savedValue;
+      }
+    });
+    updatePreview();
+  }
+}
+
+function updatePreview() {
+  const inputs = document.querySelectorAll('.madLibsEdit input');
+  const previewInputs = document.querySelectorAll('.madLibsPreview input');
+  inputs.forEach((input, index) => {
+    previewInputs[index].value = input.value;
+  });
+}
+
+window.addEventListener('load', retrieveInputsFromLocal);
+
 getRawStory()
   .then(parseStory)
   .then((processedStory) => {
